@@ -1,5 +1,8 @@
 package br.ufal.ic.p2.bikeshare;
 
+import br.ufal.ic.p2.bikeshare.exception.BikeshareException;
+import br.ufal.ic.p2.bikeshare.util.Persistencia;
+
 /**
  Facade
  */
@@ -7,122 +10,131 @@ public class Facade {
 
     private static final String AINDA_NAO_IMPLEMENTADO = "Ainda não implementado.";
 
+    private Sistema sistema = Persistencia.carregar();
+
     // =====================================================================
     // US1 - Cadastro de usuario
     // =====================================================================
 
-    public String criarUsuario(String nome, String email, String senha, String tipo, String cpfOuCnpj) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
-    }
-
-    public String criarUsuario(String nome, String email, String senha, String tipo, String cnpj, String razaoSocial) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
-    }
-
-    public String criarUsuario(String nome, String email, String senha, String tipo, String cpf,
-                                String plano, String mensalidade) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String criarUsuario(String nome, String email, String senha, String tipo, String cpfOuCnpj)
+            throws BikeshareException {
+        return sistema.criarPessoaFisica(nome, email, senha, tipo, cpfOuCnpj, null, null, false);
     }
 
     public String criarUsuario(String nome, String email, String senha, String tipo, String cnpj,
-                                String razaoSocial, String plano, String mensalidade) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+                               String razaoSocial) throws BikeshareException {
+        return sistema.criarPessoaJuridica(nome, email, senha, tipo, cnpj, razaoSocial, null, null, false);
+    }
+
+    public String criarUsuario(String nome, String email, String senha, String tipo, String cpf,
+                                String plano, String mensalidade) throws BikeshareException {
+        return sistema.criarPessoaFisica(nome, email, senha, tipo, cpf, plano, mensalidade, true);
+    }
+
+    public String criarUsuario(String nome, String email, String senha, String tipo, String cnpj,
+                                String razaoSocial, String plano, String mensalidade)
+            throws BikeshareException {
+        return sistema.criarPessoaJuridica(nome, email, senha, tipo, cnpj, razaoSocial, plano, mensalidade, true);
     }
 
     // =====================================================================
     // US2 - Consulta de usuario
     // =====================================================================
 
-    public String getAtributoUsuario(String usuario, String atributo) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String getAtributoUsuario(String usuario, String atributo) throws BikeshareException {
+        return sistema.getAtributoUsuario(usuario, atributo);
     }
 
-    public String getUsuarioPorEmail(String email) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String getUsuarioPorEmail(String email) throws BikeshareException {
+        return sistema.getUsuarioPorEmail(email);
     }
 
     // =====================================================================
     // US3 - Alteracao de usuario (inclui metodo de pagamento)
     // =====================================================================
 
-    public void alterarUsuario(String usuario, String atributo, String valor) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public void alterarUsuario(String usuario, String atributo, String valor) throws BikeshareException {
+        sistema.alterarUsuario(usuario, atributo, valor);
     }
 
-    public void alterarUsuario(String usuario, String atributo, String valor1, String chave) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public void alterarUsuario(String usuario, String atributo, String valor1, String chave)
+            throws BikeshareException {
+        sistema.alterarUsuario(usuario, atributo, valor1, chave);
     }
 
-    public void alterarUsuario(String usuario, String atributo, String valor1, String numero, String validade) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public void alterarUsuario(String usuario, String atributo, String valor1, String numero, String validade)
+            throws BikeshareException {
+        sistema.alterarUsuario(usuario, atributo, valor1, numero, validade);
     }
 
     // =====================================================================
     // US4 - Remocao de usuario
     // =====================================================================
 
-    public void removerUsuario(String usuario) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public void removerUsuario(String usuario) throws BikeshareException {
+        sistema.removerUsuario(usuario);
     }
 
     // =====================================================================
     // US5 - Cadastro de estacao
     // =====================================================================
 
-    public String criarEstacao(String nome, String endereco, String capacidade) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String criarEstacao(String nome, String endereco, String capacidade) throws BikeshareException {
+        return sistema.criarEstacao(nome, endereco, capacidade);
     }
 
     // =====================================================================
     // US6 - Gestao de bicicletas na estacao
     // =====================================================================
 
-    public void adicionarBicicleta(String estacao, String bicicleta, String tipo) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public void adicionarBicicleta(String estacao, String bicicleta, String tipo) throws BikeshareException {
+        sistema.adicionarBicicleta(estacao, bicicleta, tipo, null, false);
     }
 
-    public void adicionarBicicleta(String estacao, String bicicleta, String tipo, String nivelBateria) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public void adicionarBicicleta(String estacao, String bicicleta, String tipo, String nivelBateria)
+            throws BikeshareException {
+        sistema.adicionarBicicleta(estacao, bicicleta, tipo, nivelBateria, true);
     }
 
-    public void removerBicicleta(String estacao, String bicicleta) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public void removerBicicleta(String estacao, String bicicleta) throws BikeshareException {
+        sistema.removerBicicleta(estacao, bicicleta);
     }
 
-    public String getAtributoBicicleta(String bicicleta, String atributo) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String getAtributoBicicleta(String bicicleta, String atributo) throws BikeshareException {
+        return sistema.getAtributoBicicleta(bicicleta, atributo);
     }
 
     // =====================================================================
     // US7 - Consulta de disponibilidade
     // =====================================================================
 
-    public String getBicicletasDisponiveis(String estacao) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String getBicicletasDisponiveis(String estacao) throws BikeshareException {
+        return sistema.getBicicletasDisponiveis(estacao);
     }
 
-    public String getVagasDisponiveis(String estacao) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String getVagasDisponiveis(String estacao) throws BikeshareException {
+        return sistema.getVagasDisponiveis(estacao);
     }
 
-    public String getEstadoBicicleta(String bicicleta) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String getEstadoBicicleta(String bicicleta) throws BikeshareException {
+        return sistema.getEstadoBicicleta(bicicleta);
     }
 
     // =====================================================================
     // US8 - Retirada de bicicleta
     // =====================================================================
 
-    public String retirarBicicleta(String usuario, String estacao, String bicicleta, String data) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String retirarBicicleta(String usuario, String estacao, String bicicleta, String data)
+            throws BikeshareException {
+        return sistema.retirarBicicleta(usuario, estacao, bicicleta, data);
     }
 
     // =====================================================================
     // US9 - Devolucao de bicicleta
     // =====================================================================
 
-    public void devolverBicicleta(String aluguel, String estacao, String data) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public void devolverBicicleta(String aluguel, String estacao, String data) throws BikeshareException {
+        sistema.devolverBicicleta(aluguel, estacao, data);
     }
 
     // =====================================================================
@@ -137,8 +149,8 @@ public class Facade {
         throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
     }
 
-    public String getAtributoAluguel(String aluguel, String atributo) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String getAtributoAluguel(String aluguel, String atributo) throws BikeshareException {
+        return sistema.getAtributoAluguel(aluguel, atributo);
     }
 
     // =====================================================================
@@ -194,10 +206,11 @@ public class Facade {
     // =====================================================================
 
     public void zerarSistema() {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+        sistema.zerar();
+        Persistencia.apagar();
     }
 
     public void encerrarSistema() {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+        Persistencia.salvar(sistema);
     }
 }
